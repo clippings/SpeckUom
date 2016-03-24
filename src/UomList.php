@@ -40,6 +40,35 @@ class UomList
     }
 
     /**
+     * Find first with the given symbol.
+     *
+     * @param  string $symbol non-empty symbol string, e.g. kg or g
+     * @return Uom|null
+     */
+    public function findBySymbol($symbol)
+    {
+        $symbol = trim($symbol);
+
+        if (empty($symbol)) {
+            return null;
+        }
+
+        foreach (self::$uomArray as $uom) {
+            if ($uom['symbol'] === $symbol) {
+                return new Uom(
+                    $uom['commoncode'],
+                    $uom['name'],
+                    $uom['description'],
+                    $uom['symbol'],
+                    $uom['conversion_factor']
+                );
+            }
+        }
+
+        return null;
+    }
+
+    /**
      *
      * @return array
      */
